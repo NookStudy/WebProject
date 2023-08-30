@@ -1,0 +1,69 @@
+Project Name : DCSLR
+
+
+테이블 구상도
+
+유저테이블
+	MemberNo
+	ID 소셜시 소셜ID. Primary
+	Pass - 소셜 토큰.
+	name - 유저 이름
+	Nickname - 닉네임 설정(소셜로그인시 별명 없으면 임의설정). Unique
+	Email - 소셜로도 필수. Unique. 동일하면 어떻게 일치시키지..?
+	Adress 1 - null허용(소셜로 들어오면 못가져올테니)
+	Adress 2 - null 허용
+	Gender - 정보수집
+	Birth - 호옹이
+	Regidate - (어떻든간에 들어오는 즉시 default on null sysdate )
+	PhoneNumber - 가져올수가.. 있나?
+	
+		--솔팅 및 해싱 추가 예정
+		
+갤러리 테이블
+    GalleryPostNo number primary key,  		- 사진게시판 고유번호
+	id varchar2(50) not null foreign key,	- 회원아이디
+    title varchar2(200) not null,			- 게시물 제목	
+    content varchar2(2000) not null,		- 게시물 내용
+    postdate date default on null sysdate not null,	- 게시날짜
+    ofile varchar2(200),					- 업로드 파일 오리지널이름
+    nfile varchar2(30),						- 업로드파일 변동이름
+    downcount number(5) default 0 not null,	- 다운로드 카운트
+    visitcount number default 0 not null	- 조회수
+	cate	varchar2(30) 	basic,notice 	- 카테고리
+	
+메세지 테이블
+
+
+자유게시판 테이블
+idx - index sequence구현
+ofile - orginal file  name
+nfile - new file name(사진이름 중복방지... 시간겹치면?)
+title
+category - 이건 관리자만 건들 수 있음. 기본은 hidden(일반)
+content
+
+
+사진게시판 테이블
+
+공지사항 테이블
+얘는 모든 테이블 상단에 최신 3개 노출.
+클래스로 잘라서 위에서 가져오자.
+
+포럼공지
+-포럼관리자의 공지 최상단 공지밑에 최신 2개 공지
+--일반유저가 쓴글도 관리자의 눈에들면 최신공지가 될수 있다.
+--포럼 및 사진게시판은 회원제
+--자유게시판은 회원+비회원제(회원은 고닉이 된다.)
+
+
+
+DTO,DAO
+members
+messages
+Freeboard
+Photoboard
+Forum
+	nikon
+	canon
+	sony
+
