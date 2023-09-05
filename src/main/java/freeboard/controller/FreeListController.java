@@ -19,6 +19,8 @@ import freeboard.model.FreeboardDAO;
 import freeboard.model.FreeboardDTO;
 import notice.model.NoticeBoardDAO;
 import notice.model.NoticeBoardDTO;
+import reply.model.FreeReplyDAO;
+import reply.model.FreeReplyDTO;
 import utils.BoardPage;
 
 @WebServlet("/freeboard/list.do")
@@ -26,9 +28,8 @@ public class FreeListController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			HttpSession session = request.getSession();
-			System.out.println("두겟 들어오자마자 line30:"+session.getAttribute("id")); 
-		//DAO객체 생성을 통해 커넥션 풀로 DB에 연결한다.
+		HttpSession session = request.getSession();
+		//공지사항 상단게시물을 위한 부분
 				NoticeBoardDAO notidao = new NoticeBoardDAO();
 				
 				//Model(데이터베이스),View(JSP페이지)로 파라미터 및 데이터를 전달하기 위해 생성한다.
@@ -74,7 +75,6 @@ public class FreeListController extends HttpServlet{
 				//자원반납(커넥션풀)
 				notidao.close();
 				//페이지 번호 생성을 위한 유틸리티 클래스 메소드 호출
-				//모딜1방식의 게시판에서 사용했던 메소드 그대로 사용
 				String pagingImg = BoardPage.pagingStr(totalCount,pageSize,blocPage,pageNum,"../noticeboard/list.do");
 				//View로 전달할 데이터 Map에 저장
 				//목록 하단에 출력할 페이지 번호

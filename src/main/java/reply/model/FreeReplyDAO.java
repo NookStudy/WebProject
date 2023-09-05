@@ -3,7 +3,7 @@ package reply.model;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
-
+import freeboard.model.FreeboardDTO;
 import jdbc.*;
 
 public class FreeReplyDAO extends DBconnPool
@@ -160,6 +160,23 @@ public class FreeReplyDAO extends DBconnPool
 			e.printStackTrace();
 		}
 		return -1;
+	}
+
+	public String countReply(String freeno) {
+		sql = "select count(*) from replyfree where freeno = ?";
+		String replycount = "0" ;
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, freeno);
+			rs = psmt.executeQuery();
+			rs.next();
+			replycount = rs.getString(1);
+			return replycount;
+		} catch (Exception e) {
+			System.out.println("댓글갯수 조회중 예외발생");
+			e.printStackTrace();
+		}
+		return replycount;
 	}
 
 }

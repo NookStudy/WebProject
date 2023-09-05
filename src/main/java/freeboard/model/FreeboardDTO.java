@@ -13,7 +13,14 @@ public class FreeboardDTO {
 	private String visitcount;
 	private String cate;
 	private String heart;
+	private String replycount;
 	
+	public String getReplycount() {
+		return replycount;
+	}
+	public void setReplycount(String replycount) {
+		this.replycount = replycount;
+	}
 	public String getHeart() {
 		return heart;
 	}

@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Vector;
 
 import jdbc.DBconnPool;
+import reply.model.FreeReplyDAO;
 
 
 public class FreeboardDAO extends DBconnPool{
@@ -38,6 +39,9 @@ public class FreeboardDAO extends DBconnPool{
 	}
 
 	public List<FreeboardDTO> selectListpage(Map<String, Object> map) {
+		//댓글갯수 가져오기 
+			FreeReplyDAO replydao = new FreeReplyDAO();
+		//
 		List<FreeboardDTO> boardLists = new Vector<FreeboardDTO>();
 		String query = "Select * from( select tb.*, rownum rnum from (select * from freeboard";
 		if (map.get("searchWord") != null) {
@@ -50,7 +54,8 @@ public class FreeboardDAO extends DBconnPool{
 			psmt.setString(1, map.get("start").toString());
 			psmt.setString(2, map.get("end").toString());
 			rs = psmt.executeQuery();
-
+			
+			
 			while (rs.next()) {
 				FreeboardDTO dto = new FreeboardDTO();
 				dto.setFreeno(rs.getString("freeno"));
@@ -65,6 +70,8 @@ public class FreeboardDAO extends DBconnPool{
 				dto.setVisitcount(rs.getString("visitcount"));
 				dto.setCate(rs.getString("cate"));
 				dto.setHeart(rs.getString("heart"));
+				String replycount = replydao.countReply(dto.getFreeno());
+				dto.setReplycount(replycount);
 				
 				boardLists.add(dto);
 				System.out.println("notiboarcont:line68"+boardLists.get(0).toString());

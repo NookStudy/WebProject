@@ -92,7 +92,13 @@ $(function() {
 					<td>
 						${ map.totalCount -(((map.pageNum-1)*map.pageSize)+loop.index)} 
 					</td>
-					<td align="left"><a href=" ../freeboard/lookup.do?freeno=${row.freeno }">${row.title }</a></td>
+					<td align="left"><a href=" ../freeboard/lookup.do?freeno=${row.freeno }">${row.title }
+					</a>
+					<c:if test="${row.replycount > 0 }"> 
+					<span style="color:red">[${row.replycount }]</span>
+					</c:if>
+					</td>
+					
 					<td>${row.nickname }</td>
 					<td>${row.visitcount }</td>
 					<td>${row.postdate }</td>
